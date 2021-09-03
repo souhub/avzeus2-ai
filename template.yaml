@@ -1,0 +1,37 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  avzeus2-ai
+
+  Sample SAM Template for avzeus2-ai
+
+# 10秒くらいにしとかないとBuilding image... のとこで処理時間が間に合わずエラーが起きる
+Globals:
+  Function:
+    Timeout: 10
+
+Resources:
+  HelloWorldFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: hello_world/
+      Handler: app.lambda_handler
+      Runtime: python3.9
+      Events:
+        HelloWorld:
+          Type: Api
+          Properties:
+            Path: /hello
+            Method: get
+      Layers:
+        - !Ref MyLayer
+
+  MyLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      Description: Layer description
+      ContentUri: "my_layer/"
+      CompatibleRuntimes:
+        - python3.8
+    Metadata:
+      BuildMethod: python3.9
