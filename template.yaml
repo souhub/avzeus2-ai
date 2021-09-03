@@ -5,33 +5,81 @@ Description: >
 
   Sample SAM Template for avzeus2-ai
 
-# 10秒くらいにしとかないとBuilding image... のとこで処理時間が間に合わずエラーが起きる
+# ローカルテスト時、Building image... のとこで処理時間が間に合わずエラーが起きるのを回避できるように長めに設定
 Globals:
   Function:
-    Timeout: 10
+    Timeout: 30
 
 Resources:
-  HelloWorldFunction:
+  # HelloWorldFunction:
+  #   Type: AWS::Serverless::Function
+  #   Properties:
+  #     CodeUri: hello_world/
+  #     Handler: app.lambda_handler
+  #     Runtime: python3.9
+  #     Events:
+  #       HelloWorld:
+  #         Type: Api
+  #         Properties:
+  #           Path: /hello
+  #           Method: get
+  #     Layers:
+  #       - !Ref MyLayer
+
+  # MyLayer:
+  #   Type: AWS::Serverless::LayerVersion
+  #   Properties:
+  #     Description: Layer description
+  #     ContentUri: "my_layer/"
+  #     CompatibleRuntimes:
+  #       - python3.9
+  #   Metadata:
+  #     BuildMethod: python3.9
+
+  InitActressRecommendFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: hello_world/
-      Handler: app.lambda_handler
-      Runtime: python3.9
+      CodeUri: "zeus/init_actress_recommend/"
+      Handler: algorithms.lambda_handler
+      Runtime: python3.7
       Events:
-        HelloWorld:
+        InitActressRecommend:
           Type: Api
           Properties:
-            Path: /hello
+            Path: /init-actress-recommend
             Method: get
-      Layers:
-        - !Ref MyLayer
+      # Layers:
+      #   - !Ref InitActressRecommendDep
 
-  MyLayer:
-    Type: AWS::Serverless::LayerVersion
+  ImgRecommendFunction:
+    Type: AWS::Serverless::Function
     Properties:
-      Description: Layer description
-      ContentUri: "my_layer/"
-      CompatibleRuntimes:
-        - python3.8
-    Metadata:
-      BuildMethod: python3.9
+      CodeUri: "zeus/img_recommend/"
+      Handler: algorithms.lambda_handler
+      Runtime: python3.7
+      Events:
+        InitActressRecommend:
+          Type: Api
+          Properties:
+            Path: /img-recommend
+            Method: get
+
+  # InitActressRecommendDep:
+  #   Type: AWS::Serverless::LayerVersion
+  #   Properties:
+  #     Description: A dependenceis layer for InitActressRecommend
+  #     ContentUri: "dep/zeus/init_actress_recommend/"
+  #     CompatibleRuntimes:
+  #       - python3.9
+  #   Metadata:
+  #     BuildMethod: python3.9
+
+  # ImgRecommendDep:
+  #   Type: AWS::Serverless::LayerVersion
+  #   Properties:
+  #     Description: A dependenceis layer for ImgRecommend
+  #     ContentUri: "dep/zeus/img_recommend"
+  #     CompatibleRuntimes:
+  #       - python3.9
+  #   Metadata:
+  #     BuildMethod: python3.9
