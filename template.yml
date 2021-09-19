@@ -1,0 +1,33 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+
+Globals:
+  Function:
+    Timeout: 50
+    MemorySize: 5000
+  Api:
+    BinaryMediaTypes:
+      - image/png
+      - image/jpg
+      - image/jpeg
+
+Resources:
+  ImgRecommendFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      PackageType: Image
+      Events:
+        HelloWorld:
+          Type: Api
+          Properties:
+            Path: /img-rec
+            Method: post
+    Metadata:
+      Dockerfile: Dockerfile
+      DockerContext: ./img-recommend
+      DockerTag: python3.7-v1
+
+  # S3TestBucket2:
+  #   Type: AWS::S3::Bucket
+  #   Properties:
+  #     BucketName: souhub-s3-test-function2
