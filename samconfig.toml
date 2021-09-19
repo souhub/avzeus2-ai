@@ -7,5 +7,5 @@ s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-1ske8734iegyh"
 s3_prefix = "avzeus2-ai"
 region = "ap-northeast-1"
 capabilities = "CAPABILITY_IAM"
-image_repositories = ["ImgRecommendFunction=535411933495.dkr.ecr.ap-northeast-1.amazonaws.com/img-recommend"]
+image_repositories = ["ImgRecommendFunction=535411933495.dkr.ecr.ap-northeast-1.amazonaws.com/img-recommend", "InitActressesFunction=535411933495.dkr.ecr.ap-northeast-1.amazonaws.com/avzeus2-ai/init-actresses"]
 confirm_changeset = true
