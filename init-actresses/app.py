@@ -16,31 +16,35 @@ def lambda_handler(event, context):
 
     try:
         # ここから AI アルゴリズム実行
-        ids = decide_init_actress_id()
+        groups = decide_init_actress_id()
         # ここまで
 
         actresses = []
 
-        for id in ids:
-            payload = {'api_id': API_ID,
-                       'affiliate_id': AFFIRIATE_ID,
-                       'actress_id': id}
+        for ids in groups:
+            for id in ids:
+                payload = {'api_id': API_ID,
+                           'affiliate_id': AFFIRIATE_ID,
+                           'actress_id': id}
 
-            r = requests.get(
-                DMM_API_BASE_URL, params=payload)
+                r = requests.get(
+                    DMM_API_BASE_URL, params=payload)
 
-            actress = r.json()['result']['actress'][0]
+                actress = r.json()['result']['actress'][0]
 
-            try:
-                # imageURLがない女優は消去
-                actress['imageURL']
-                actresses.append(actress)
-            except:
-                continue
+                try:
+                    # imageURLがない女優は消去
+                    actress['imageURL']
 
-            for k in actress:
-                if actress[k] == "" or actress[k] is None:
-                    actress[k] = '♡♡秘密♡♡'
+                    # null または "" があれば代入
+                    for k in actress:
+                        if actress[k] == "" or actress[k] is None:
+                            actress[k] = '♡♡秘密♡♡'
+
+                    actresses.append(actress)
+                    break
+                except:
+                    continue
 
         return {
             'statusCode': 200,
