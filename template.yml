@@ -37,6 +37,12 @@ Resources:
           Properties:
             Path: /init-actresses
             Method: get
+      Environment:
+        Variables:
+          API_ID: dummy
+          AFFIRIATE_ID: dummy
+          DMM_API_BASE_URL: dummy
+
     Metadata:
       Dockerfile: Dockerfile
       DockerContext: ./init-actresses
