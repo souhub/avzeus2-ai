@@ -42,6 +42,21 @@ Resources:
       DockerContext: ./init-actresses
       DockerTag: python3.7-v1
 
+  ScoreRecommendFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      PackageType: Image
+      Events:
+        HelloWorld:
+          Type: Api
+          Properties:
+            Path: /score-rec
+            Method: post
+    Metadata:
+      Dockerfile: Dockerfile
+      DockerContext: ./score-recommend
+      DockerTag: python3.7-v1
+
   # S3TestBucket2:
   #   Type: AWS::S3::Bucket
   #   Properties:
