@@ -5,7 +5,7 @@ import pandas as pd
 from sklearn.cluster import KMeans
 
 INPUTS_PATH = '/opt/ml/inputs/'
-
+#INPUTS_PATH = '../inputs/'
 
 def decide_init_actress_id() -> list:
 
@@ -27,7 +27,12 @@ def decide_init_actress_id() -> list:
 
     for i in range(n_clusters):
 
-        index = np.argmin(np.square(vec - center_vec[i]).sum(axis=1))
-        init_actress_id.append(str(ids[index]))
+        sort_list = np.argsort(np.square(vec - center_vec[i]).sum(axis=1))
+        group_actresses = []
+        for index in sort_list[:5]:
+                
+                group_actresses.append(str(ids[index]))
+                
+        init_actress_id.append(group_actresses)
 
     return init_actress_id
