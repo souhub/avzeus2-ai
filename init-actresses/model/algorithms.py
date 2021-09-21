@@ -9,16 +9,16 @@ INPUTS_PATH = '/opt/ml/inputs/'
 
 def decide_init_actress_id() -> list:
 
-    n_clusters = 5
+    n_clusters = 7
     df = pd.read_csv(INPUTS_PATH+'actress_data.csv')
     vec = df[['elem']].values
     model = KMeans(
-        n_clusters=n_clusters,
-        n_init=10,
-        max_iter=300,
-        tol=0.01,
-        random_state=int(np.random.random_sample() * 1000),
-        n_jobs=2
+        n_clusters = n_clusters,
+        n_init = 10,
+        max_iter = 300,
+        tol = 0.01,
+        random_state = int(np.random.random_sample() * 1000),
+        n_jobs = 1
     )
     model.fit(vec)
     center_vec = model.cluster_centers_
@@ -29,7 +29,7 @@ def decide_init_actress_id() -> list:
 
         sort_list = np.argsort(np.square(vec - center_vec[i]).sum(axis=1))
         group_actresses = []
-        for index in sort_list[:5]:
+        for index in sort_list[:n_clusters]:
                 
                 group_actresses.append(str(ids[index]))
                 
