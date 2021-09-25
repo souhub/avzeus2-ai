@@ -58,6 +58,11 @@ Resources:
           Properties:
             Path: /score-rec
             Method: post
+      Environment:
+        Variables:
+          API_ID: 3bAvsFFabgmGGVWUTVTR
+          AFFIRIATE_ID: souhub-990
+          DMM_API_BASE_URL: https://api.dmm.com/affiliate/v3/ActressSearch
     Metadata:
       Dockerfile: Dockerfile
       DockerContext: ./score-recommend

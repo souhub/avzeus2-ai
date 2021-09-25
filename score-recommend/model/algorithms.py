@@ -5,9 +5,7 @@ from torch import tensor
 from torch.nn import Module, Parameter
 from torch.optim import Adam
 
-#INPUTS_PATH = '/opt/ml/inputs/'
-INPUTS_PATH = '../inputs/'
-
+INPUTS_PATH = '/opt/ml/inputs/'
 
 class minus_log_likelihood(Module):
 
@@ -135,7 +133,7 @@ score_dict = {'1043077': 0.1,
               '1038230': 0.1,
               '1027944': 0.1,
               '1038466': 0.1,
-              #'1061347': 0.1,
+              # '1061347': 0.1,
               }
 output = recommend_from_score_dict(score_dict)
 print(output)
