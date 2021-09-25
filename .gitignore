@@ -244,6 +244,12 @@ $RECYCLE.BIN/
 
 # test resources
 woman.txt
+actresses.json
 
 # ML model
 resnet
+
+# env.json for build on container
+env.local.json
+
+template.yml
