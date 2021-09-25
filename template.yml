@@ -39,9 +39,45 @@ Resources:
             Method: get
       Environment:
         Variables:
-          API_ID: dummy
-          AFFIRIATE_ID: dummy
-          DMM_API_BASE_URL: dummy
+          API_ID:
+            !Join [
+              ":",
+              [
+                "{{resolve:secretsmanager",
+                "arn:aws:secretsmanager",
+                !Ref "AWS::Region",
+                !Ref "AWS::AccountId",
+                "secret:avzeus2/ai-drUf20",
+                "dmm/api-key",
+                "}}",
+              ],
+            ]
+          AFFIRIATE_ID:
+            !Join [
+              ":",
+              [
+                "{{resolve:secretsmanager",
+                "arn:aws:secretsmanager",
+                !Ref "AWS::Region",
+                !Ref "AWS::AccountId",
+                "secret:avzeus2/ai-drUf20",
+                "dmm/affiriate-id",
+                "}}",
+              ],
+            ]
+          DMM_API_BASE_URL:
+            !Join [
+              ":",
+              [
+                "{{resolve:secretsmanager",
+                "arn:aws:secretsmanager",
+                !Ref "AWS::Region",
+                !Ref "AWS::AccountId",
+                "secret:avzeus2/ai-drUf20",
+                "dmm/base-url",
+                "}}",
+              ],
+            ]
 
     Metadata:
       Dockerfile: Dockerfile
@@ -58,6 +94,48 @@ Resources:
           Properties:
             Path: /score-rec
             Method: post
+      Environment:
+        Variables:
+          API_ID:
+            !Join [
+              ":",
+              [
+                "{{resolve:secretsmanager",
+                "arn:aws:secretsmanager",
+                !Ref "AWS::Region",
+                !Ref "AWS::AccountId",
+                "secret:avzeus2/ai-drUf20",
+                "dmm/api-key",
+                "}}",
+              ],
+            ]
+          AFFIRIATE_ID:
+            !Join [
+              ":",
+              [
+                "{{resolve:secretsmanager",
+                "arn:aws:secretsmanager",
+                !Ref "AWS::Region",
+                !Ref "AWS::AccountId",
+                "secret:avzeus2/ai-drUf20",
+                "dmm/affiriate-id",
+                "}}",
+              ],
+            ]
+          DMM_API_BASE_URL:
+            !Join [
+              ":",
+              [
+                "{{resolve:secretsmanager",
+                "arn:aws:secretsmanager",
+                !Ref "AWS::Region",
+                !Ref "AWS::AccountId",
+                "secret:avzeus2/ai-drUf20",
+                "dmm/base-url",
+                "}}",
+              ],
+            ]
+
     Metadata:
       Dockerfile: Dockerfile
       DockerContext: ./score-recommend
