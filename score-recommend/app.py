@@ -14,17 +14,19 @@ DMM_API_BASE_URL = os.environ.get('DMM_API_BASE_URL')
 
 def lambda_handler(event, context):
     # 受け取った女優情報からAIにわたす形にデータ加工
-    body = json.loads(event['body'])
-    scores_with_id = {}
+    # body = json.loads(event['body'])
+    # scores_with_id = {}
 
-    for actress in body['actresses']:
-        id = actress['id']
-        score = actress['score']
-        scores_with_id[id] = score
+    # for actress in body['actresses']:
+    #     id = actress['id']
+    #     score = actress['score']
+    #     scores_with_id[id] = score
+    body = json.loads(event['body'])
 
     try:
         # ここから AI アルゴリズム実行
-        ids = recommend_from_score_dict(scores_with_id)
+        # ids = recommend_from_score_dict(scores_with_id)
+        ids = recommend_from_score_dict(body)
         # ここまで
 
         # ID配列から女優情報を取得
@@ -41,7 +43,12 @@ def lambda_handler(event, context):
             actresses.append(actress)
         return {
             'statusCode': 200,
-            'body': json.dumps({"actresses": actresses})
+            'headers': {
+                'Access-Control-Allow-Headers': 'Content-Type',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'OPTIONS, POST'
+            },
+            'body': json.dumps(actresses)
         }
 
     except Exception as e:

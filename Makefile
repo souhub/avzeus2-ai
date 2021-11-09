@@ -16,7 +16,7 @@ api:
 	sam local start-api
 
 test-img-recommend:
-	curl  -X POST \
+	curl -v -X POST \
 		-H "Content-Type: application/x-www-form-urlencoded" \
 		-d @tests/woman.txt  http://127.0.0.1:3000/img-rec
 
