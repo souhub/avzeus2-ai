@@ -1,5 +1,5 @@
 -f https://download.pytorch.org/whl/torch_stable.html
-numpy==1.19.2
+numpy==1.22.0
 pandas==1.2.4
 torch==1.8.1+cpu
 requests==2.26.0
